@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: nicola-portfolio:local
+    container_name: nicola-portfolio
     ports:
-      - "1998:80"
+      - "${PORT:-1998}:80"
     restart: unless-stopped

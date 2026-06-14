@@ -1,6 +1,6 @@
 # Nicola F. Salvaturi Portfolio
 
-Portfolio berbasis React dan Vite. Deployment production menggunakan GitHub Pages dan GitHub Actions.
+Portfolio berbasis React dan Vite dengan deployment Docker manual.
 
 ## Development
 
@@ -12,27 +12,38 @@ npm run dev
 ## Production Check
 
 ```bash
-npm run deploy:check
+npm run lint
+npm run build
 ```
 
-Perintah tersebut menjalankan lint dan production build sebelum perubahan dikirim ke repository.
+## Deploy Manual di Server Linux
 
-## Deploy
+Pastikan Docker dan Docker Compose plugin sudah terpasang. Setelah repository tersedia di server, jalankan:
 
-1. Buka repository GitHub `nicolafeby/portofolio`.
-2. Masuk ke **Settings > Pages**.
-3. Pada **Build and deployment > Source**, pilih **GitHub Actions**.
-4. Push perubahan ke branch `main`.
+```bash
+git pull origin main
+bash scripts/deploy-server.sh
+```
 
-Workflow `.github/workflows/deploy.yml` akan otomatis membangun dan menerbitkan website ke:
+Script akan membangun image dari source, menjalankan container, dan memeriksa health status. Website tersedia di:
 
-`https://nicolafeby.github.io/portofolio/`
+`http://IP_SERVER:1998`
 
-Deployment juga dapat dijalankan manual melalui tab **Actions**, pilih workflow **Deploy portfolio to GitHub Pages**, lalu klik **Run workflow**.
+Untuk menggunakan port lain:
 
-## Docker
+```bash
+PORT=8080 bash scripts/deploy-server.sh
+```
 
-Build dan jalankan container production secara lokal:
+Melihat status, log, atau menghentikan container:
+
+```bash
+docker compose ps
+docker compose logs -f portfolio
+docker compose down
+```
+
+## Docker Lokal
 
 ```bash
 npm run docker:run
@@ -43,15 +54,4 @@ Website tersedia di `http://localhost:1998`. Untuk menjalankan tanpa Compose:
 ```bash
 npm run docker:build
 docker run --rm -p 1998:80 nicola-portfolio:local
-```
-
-Setiap push ke branch `main` juga menjalankan workflow `.github/workflows/docker.yml` dan menerbitkan image ke GitHub Container Registry:
-
-`ghcr.io/nicolafeby/portofolio:latest`
-
-Menjalankan image dari registry:
-
-```bash
-docker pull ghcr.io/nicolafeby/portofolio:latest
-docker run -d --name nicola-portfolio -p 1998:80 --restart unless-stopped ghcr.io/nicolafeby/portofolio:latest
 ```
