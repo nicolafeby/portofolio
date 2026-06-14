@@ -1,60 +1,62 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-set -Eeuo pipefail
+set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
+CONTAINER_NAME="nicola-portfolio"
+PORT="${PORT:-1998}"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+SOURCE_DIR="$PROJECT_DIR/dist"
+NGINX_CONFIG="$PROJECT_DIR/nginx.conf"
 
-export PORT="${PORT:-1998}"
+echo "Starting deployment for $CONTAINER_NAME..."
 
-cd "${PROJECT_DIR}"
+if ! command -v npm >/dev/null 2>&1; then
+  echo "Error: npm belum terpasang."
+  exit 1
+fi
 
 if ! command -v docker >/dev/null 2>&1; then
-  echo "Error: Docker belum terpasang." >&2
+  echo "Error: Docker belum terpasang."
   exit 1
 fi
 
 if ! docker info >/dev/null 2>&1; then
-  echo "Error: Docker daemon tidak aktif atau user tidak memiliki akses Docker." >&2
+  echo "Error: Docker daemon tidak aktif atau user tidak memiliki akses Docker."
   exit 1
 fi
 
-if ! docker compose version >/dev/null 2>&1; then
-  echo "Error: Docker Compose plugin belum tersedia." >&2
+echo "Building website..."
+cd "$PROJECT_DIR"
+npm ci
+npm run build
+
+if [ ! -d "$SOURCE_DIR" ]; then
+  echo "Error: folder dist tidak ditemukan di $SOURCE_DIR"
   exit 1
 fi
 
-echo "Building portfolio image..."
-docker compose build --pull
-
-echo "Starting portfolio on port ${PORT}..."
-docker compose up -d --remove-orphans
-
-container_id="$(docker compose ps -q portfolio)"
-if [[ -z "${container_id}" ]]; then
-  echo "Error: container portfolio tidak ditemukan." >&2
-  docker compose logs --tail=100 portfolio
+if [ ! -f "$NGINX_CONFIG" ]; then
+  echo "Error: nginx.conf tidak ditemukan di $NGINX_CONFIG"
   exit 1
 fi
 
-echo "Waiting for container health check..."
-for attempt in $(seq 1 40); do
-  status="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "${container_id}")"
+echo "Setting permission..."
+chmod -R 755 "$SOURCE_DIR"
 
-  if [[ "${status}" == "healthy" ]]; then
-    echo "Deployment successful: http://localhost:${PORT}"
-    docker compose ps
-    exit 0
-  fi
+if [ "$(docker ps -aq -f name=^/${CONTAINER_NAME}$)" ]; then
+  echo "Removing existing container..."
+  docker rm -f "$CONTAINER_NAME"
+fi
 
-  if [[ "${status}" == "unhealthy" || "${status}" == "exited" || "${status}" == "dead" ]]; then
-    break
-  fi
+echo "Running new container..."
+docker run -d \
+  --name "$CONTAINER_NAME" \
+  --restart unless-stopped \
+  -p "$PORT:80" \
+  -v "$SOURCE_DIR:/usr/share/nginx/html:ro" \
+  -v "$NGINX_CONFIG:/etc/nginx/conf.d/default.conf:ro" \
+  nginx:alpine
 
-  sleep 3
-done
-
-echo "Error: container gagal mencapai status healthy." >&2
-docker compose ps
-docker compose logs --tail=100 portfolio
-exit 1
+echo "Done!"
+echo "Access: http://localhost:$PORT"

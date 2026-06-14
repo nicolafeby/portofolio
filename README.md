@@ -1,6 +1,6 @@
 # Nicola F. Salvaturi Portfolio
 
-Portfolio berbasis React dan Vite dengan deployment Docker manual.
+Portfolio berbasis React dan Vite dengan deployment Docker manual menggunakan Nginx.
 
 ## Development
 
@@ -18,14 +18,22 @@ npm run build
 
 ## Deploy Manual di Server Linux
 
-Pastikan Docker dan Docker Compose plugin sudah terpasang. Setelah repository tersedia di server, jalankan:
+Pastikan Node.js, npm, dan Docker sudah terpasang. Docker Compose tidak diperlukan. Setelah repository tersedia di server, jalankan dari root repository:
 
 ```bash
 git pull origin main
 bash scripts/deploy-server.sh
 ```
 
-Script akan membangun image dari source, menjalankan container, dan memeriksa health status. Website tersedia di:
+Atau dari folder `scripts`:
+
+```bash
+./deploy-server.sh
+```
+
+Jangan menambahkan kata `run` sebelum nama script.
+
+Script akan menjalankan `npm ci`, membuat folder production `dist`, menghapus container lama, lalu menjalankan container Nginx baru. Website tersedia di:
 
 `http://IP_SERVER:1998`
 
@@ -38,9 +46,9 @@ PORT=8080 bash scripts/deploy-server.sh
 Melihat status, log, atau menghentikan container:
 
 ```bash
-docker compose ps
-docker compose logs -f portfolio
-docker compose down
+docker ps -f name=nicola-portfolio
+docker logs -f nicola-portfolio
+docker rm -f nicola-portfolio
 ```
 
 ## Docker Lokal
