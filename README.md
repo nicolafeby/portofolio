@@ -1,16 +1,57 @@
-# React + Vite
+# Nicola F. Salvaturi Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfolio berbasis React dan Vite. Deployment production menggunakan GitHub Pages dan GitHub Actions.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm ci
+npm run dev
+```
 
-## React Compiler
+## Production Check
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run deploy:check
+```
 
-## Expanding the ESLint configuration
+Perintah tersebut menjalankan lint dan production build sebelum perubahan dikirim ke repository.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Deploy
+
+1. Buka repository GitHub `nicolafeby/portofolio`.
+2. Masuk ke **Settings > Pages**.
+3. Pada **Build and deployment > Source**, pilih **GitHub Actions**.
+4. Push perubahan ke branch `main`.
+
+Workflow `.github/workflows/deploy.yml` akan otomatis membangun dan menerbitkan website ke:
+
+`https://nicolafeby.github.io/portofolio/`
+
+Deployment juga dapat dijalankan manual melalui tab **Actions**, pilih workflow **Deploy portfolio to GitHub Pages**, lalu klik **Run workflow**.
+
+## Docker
+
+Build dan jalankan container production secara lokal:
+
+```bash
+npm run docker:run
+```
+
+Website tersedia di `http://localhost:1998`. Untuk menjalankan tanpa Compose:
+
+```bash
+npm run docker:build
+docker run --rm -p 1998:80 nicola-portfolio:local
+```
+
+Setiap push ke branch `main` juga menjalankan workflow `.github/workflows/docker.yml` dan menerbitkan image ke GitHub Container Registry:
+
+`ghcr.io/nicolafeby/portofolio:latest`
+
+Menjalankan image dari registry:
+
+```bash
+docker pull ghcr.io/nicolafeby/portofolio:latest
+docker run -d --name nicola-portfolio -p 1998:80 --restart unless-stopped ghcr.io/nicolafeby/portofolio:latest
+```

@@ -1,0 +1,9 @@
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nicola-portfolio:local
+    ports:
+      - "1998:80"
+    restart: unless-stopped
