@@ -121,10 +121,7 @@ function App() {
       </nav>
 
       <section className="hero shell" id="home">
-        <div className="hero-meta">
-          <div className="hero-eyebrow"><span className="status-dot" /><span>{profile.location}</span><span className="eyebrow-line" /><span>{time} WIB</span></div>
-          <div className="production-badge"><span>Production / Live</span><time dateTime="2026-06-15">15 Jun 2026</time></div>
-        </div>
+        <div className="hero-eyebrow"><span className="status-dot" /><span>{profile.location}</span><span className="eyebrow-line" /><span>{time} WIB</span></div>
         <div className="hero-heading">
           <p className="hero-kicker">Mobile Engineer / 2026</p>
           <h1><span className="line"><span>NICOLA</span></span><span className="line outline"><span>SALVATURI</span></span></h1>
