@@ -1,6 +1,7 @@
 main {
     position: relative;
     overflow: hidden;
+    padding-top: 104px;
     --pointer-x: 50vw;
     --pointer-y: 30vh;
 }
@@ -46,8 +47,31 @@ svg {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--line);
-    position: relative;
-    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+    background: rgba(10, 10, 10, .88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    background: inherit;
+    border-bottom: inherit;
+    z-index: -1;
+}
+
+section[id] {
+    scroll-margin-top: 104px;
 }
 
 .monogram {
@@ -947,12 +971,20 @@ footer a {
 }
 
 @media (max-width:900px) {
+    main {
+        padding-top: 80px;
+    }
+
     .shell {
         width: min(100% - 40px, 700px);
     }
 
     .nav {
         height: 80px;
+    }
+
+    section[id] {
+        scroll-margin-top: 80px;
     }
 
     .menu-button {

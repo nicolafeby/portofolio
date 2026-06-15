@@ -10,7 +10,6 @@ const profile = {
   name: 'Muhammad Nicola Feby Salvaturi',
   role: 'Senior Mobile Engineer',
   company: 'PT Bank Multiarta Sentosa Tbk (Bank MAS)',
-  location: 'South Jakarta, Jakarta, Indonesia',
   linkedin: 'https://www.linkedin.com/in/nicola-feby',
   instagram: 'https://www.instagram.com/nicolafeby/',
   phone: '+6289514785353',
@@ -33,6 +32,7 @@ const copy = {
       contact: 'Mari terhubung',
     },
     hero: {
+      location: 'Jakarta Selatan, Jakarta, Indonesia',
       kicker: 'Mobile Engineer / 2026',
       imageAlt: `Potret ${profile.name}`,
       captionRole: 'Senior Mobile Engineer',
@@ -95,6 +95,7 @@ const copy = {
       contact: "Let's connect",
     },
     hero: {
+      location: 'South Jakarta, Jakarta, Indonesia',
       kicker: 'Mobile Engineer / 2026',
       imageAlt: `Portrait of ${profile.name}`,
       captionRole: 'Senior Mobile Engineer',
@@ -291,7 +292,7 @@ const skillItems = {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [language, setLanguage] = useState('id')
+  const [language, setLanguage] = useState('en')
   const [time, setTime] = useState('')
   const pageRef = useRef(null)
   const t = copy[language]
@@ -343,7 +344,7 @@ function App() {
       </nav>
 
       <section className="hero shell" id="home">
-        <div className="hero-eyebrow"><span className="status-dot" /><span>{profile.location}</span><span className="eyebrow-line" /><span>{time} {t.hero.timezone}</span></div>
+        <div className="hero-eyebrow"><span className="status-dot" /><span>{t.hero.location}</span><span className="eyebrow-line" /><span>{time} {t.hero.timezone}</span></div>
         <div className="hero-heading">
           <p className="hero-kicker">{t.hero.kicker}</p>
           <figure className="hero-portrait reveal">
