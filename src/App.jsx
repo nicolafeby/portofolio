@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import nicolaPortrait from './assets/profile/nicola-portrait.jpg'
 
 const Arrow = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" /></svg>
 const LinkedIn = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5v9M6.5 5.5v.1M10.5 17.5v-5c0-2.2 4-2.4 4 0v5M10.5 8.5v9M18.5 17.5v-5.7c0-5.2-8-4.8-8 0" /></svg>
+const Instagram = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.4" cy="6.7" r=".8" className="icon-fill" /></svg>
 
 const profile = {
-  name: 'Nicola F. Salvaturi',
+  name: 'Muhammad Nicola Feby Salvaturi',
   role: 'Senior Mobile Engineer',
   company: 'PT Bank Multiarta Sentosa Tbk (Bank MAS)',
   location: 'South Jakarta, Jakarta, Indonesia',
   linkedin: 'https://www.linkedin.com/in/nicola-feby',
+  instagram: 'https://www.instagram.com/nicolafeby/',
   phone: '+6289514785353',
   email: 'nicolafsalv@gmail.com',
 }
@@ -112,7 +115,7 @@ function App() {
     <main ref={pageRef}>
       <div className="noise" aria-hidden="true" /><div className="spotlight" aria-hidden="true" />
       <nav className="nav shell" aria-label="Navigasi utama">
-        <a className="monogram" href="#home" onClick={closeMenu} aria-label="Nicola, kembali ke atas">NF<span>.</span></a>
+        <a className="monogram" href="#home" onClick={closeMenu} aria-label="Muhammad Nicola Feby Salvaturi, kembali ke atas">NF<span>.</span></a>
         <button className="menu-button" type="button" aria-expanded={menuOpen} aria-label="Buka menu" onClick={() => setMenuOpen((open) => !open)}><span /><span /></button>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
           <a href="#about" onClick={closeMenu}>Tentang</a><a href="#journey" onClick={closeMenu}>Pengalaman</a><a href="#work" onClick={closeMenu}>Proyek</a><a href="#skills" onClick={closeMenu}>Skills</a>
@@ -124,7 +127,11 @@ function App() {
         <div className="hero-eyebrow"><span className="status-dot" /><span>{profile.location}</span><span className="eyebrow-line" /><span>{time} WIB</span></div>
         <div className="hero-heading">
           <p className="hero-kicker">Mobile Engineer / 2026</p>
-          <h1><span className="line"><span>NICOLA</span></span><span className="line outline"><span>SALVATURI</span></span></h1>
+          <figure className="hero-portrait reveal">
+            <img src={nicolaPortrait} alt="Potret Muhammad Nicola Feby Salvaturi" />
+            <figcaption><span>Senior Mobile Engineer</span><strong>Bank MAS</strong></figcaption>
+          </figure>
+          <h1 className="hero-name"><span className="line secondary"><span>MUHAMMAD</span></span><span className="line primary"><span>NICOLA FEBY</span></span><span className="line secondary last-name"><span>SALVATURI</span></span></h1>
           <div className="orbit" aria-hidden="true"><span>FLUTTER / ANDROID / IOS / </span><b>+</b></div>
         </div>
         <div className="hero-bottom">
@@ -207,7 +214,10 @@ function App() {
               <a href={`https://wa.me/${profile.phone.replace('+', '')}`} target="_blank" rel="noreferrer"><span>WhatsApp</span><strong>{profile.phone}</strong><Arrow /></a>
             </div>
           </div>
-          <a className="contact-button" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="Hubungi Nicola melalui LinkedIn"><LinkedIn /><Arrow /></a>
+          <div className="contact-socials">
+            <a className="contact-button" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="Hubungi Nicola Feby melalui LinkedIn"><LinkedIn /><Arrow /></a>
+            <a className="contact-button instagram-button" href={profile.instagram} target="_blank" rel="noreferrer" aria-label="Ikuti Nicola Feby di Instagram, @nicolafeby"><Instagram /><Arrow /></a>
+          </div>
         </div>
         <footer><p>&copy; {new Date().getFullYear()} {profile.name}</p><p>{profile.role}</p><a href="#home">Kembali ke atas &uarr;</a></footer>
       </section>
