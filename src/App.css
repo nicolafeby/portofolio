@@ -77,6 +77,38 @@ svg {
     color: var(--paper);
 }
 
+.language-toggle {
+    min-width: 70px;
+    min-height: 38px;
+    border: 1px solid var(--line);
+    background: rgba(240, 240, 235, .03);
+    color: var(--paper);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 0 12px;
+    cursor: pointer;
+    font: 500 10px 'DM Mono';
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    transition: border-color .25s, background-color .25s;
+}
+
+.language-toggle:hover {
+    border-color: var(--lime);
+    background: rgba(199, 255, 57, .08);
+}
+
+.language-toggle span {
+    color: var(--lime);
+}
+
+.language-toggle b {
+    color: var(--muted);
+    font-weight: 400;
+}
+
 .nav-links .nav-cta {
     color: var(--ink);
     background: var(--lime);
@@ -966,6 +998,14 @@ footer a {
     .nav-links .nav-cta {
         font: 600 20px 'Syne';
         margin-top: auto;
+    }
+
+    .language-toggle {
+        min-width: 92px;
+        min-height: 46px;
+        justify-content: flex-start;
+        padding-inline: 15px;
+        font-size: 12px;
     }
 
     .hero {
