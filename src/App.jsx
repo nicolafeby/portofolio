@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import nicolaPortrait from './assets/profile/nicola-portrait.jpg'
 
 const Arrow = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" /></svg>
 const LinkedIn = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5v9M6.5 5.5v.1M10.5 17.5v-5c0-2.2 4-2.4 4 0v5M10.5 8.5v9M18.5 17.5v-5.7c0-5.2-8-4.8-8 0" /></svg>
@@ -124,6 +125,10 @@ function App() {
         <div className="hero-eyebrow"><span className="status-dot" /><span>{profile.location}</span><span className="eyebrow-line" /><span>{time} WIB</span></div>
         <div className="hero-heading">
           <p className="hero-kicker">Mobile Engineer / 2026</p>
+          <figure className="hero-portrait reveal">
+            <img src={nicolaPortrait} alt="Potret Nicola F. Salvaturi" />
+            <figcaption><span>Senior Mobile Engineer</span><strong>Bank MAS</strong></figcaption>
+          </figure>
           <h1><span className="line"><span>NICOLA</span></span><span className="line outline"><span>SALVATURI</span></span></h1>
           <div className="orbit" aria-hidden="true"><span>FLUTTER / ANDROID / IOS / </span><b>+</b></div>
         </div>
