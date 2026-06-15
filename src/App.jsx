@@ -5,6 +5,7 @@ import nicolaPortrait from './assets/profile/nicola-portrait.jpg'
 const Arrow = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M8 5h11v11" /></svg>
 const LinkedIn = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5v9M6.5 5.5v.1M10.5 17.5v-5c0-2.2 4-2.4 4 0v5M10.5 8.5v9M18.5 17.5v-5.7c0-5.2-8-4.8-8 0" /></svg>
 const Instagram = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.4" cy="6.7" r=".8" className="icon-fill" /></svg>
+const GitHub = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 20c-4.5 1.4-4.5-2.5-6.3-3m12.6 5v-3.5c0-1 .1-1.5-.5-2.1 3.1-.3 6.4-1.5 6.4-6.9 0-1.5-.5-2.8-1.4-3.8.1-.4.6-1.8-.2-3.7 0 0-1.2-.4-3.9 1.5a13.4 13.4 0 0 0-7.1 0C5.4 1.6 4.2 2 4.2 2c-.8 1.9-.3 3.3-.2 3.7a5.5 5.5 0 0 0-1.4 3.8c0 5.4 3.3 6.6 6.4 6.9-.5.5-.6 1.1-.5 2.1V22" /></svg>
 
 const profile = {
   name: 'Muhammad Nicola Feby Salvaturi',
@@ -12,7 +13,8 @@ const profile = {
   company: 'PT Bank Multiarta Sentosa Tbk (Bank MAS)',
   linkedin: 'https://www.linkedin.com/in/nicola-feby',
   instagram: 'https://www.instagram.com/nicolafeby/',
-  phone: '+6289514785353',
+  github: 'https://github.com/nicolafeby',
+  phone: '+6289677452842',
   email: 'nicolafsalv@gmail.com',
 }
 
@@ -77,6 +79,7 @@ const copy = {
       focus: 'Mobile engineering · Financial technology',
       linkedinAria: 'Hubungi Nicola Feby melalui LinkedIn',
       instagramAria: 'Ikuti Nicola Feby di Instagram, @nicolafeby',
+      githubAria: 'Lihat profil GitHub Nicola Feby, @nicolafeby',
       backTop: 'Kembali ke atas ↑',
     },
   },
@@ -140,6 +143,7 @@ const copy = {
       focus: 'Mobile engineering · Financial technology',
       linkedinAria: 'Contact Nicola Feby on LinkedIn',
       instagramAria: 'Follow Nicola Feby on Instagram, @nicolafeby',
+      githubAria: 'View Nicola Feby on GitHub, @nicolafeby',
       backTop: 'Back to top ↑',
     },
   },
@@ -435,6 +439,7 @@ function App() {
           <div className="contact-socials">
             <a className="contact-button" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label={t.contact.linkedinAria}><LinkedIn /><Arrow /></a>
             <a className="contact-button instagram-button" href={profile.instagram} target="_blank" rel="noreferrer" aria-label={t.contact.instagramAria}><Instagram /><Arrow /></a>
+            <a className="contact-button github-button" href={profile.github} target="_blank" rel="noreferrer" aria-label={t.contact.githubAria}><GitHub /><Arrow /></a>
           </div>
         </div>
         <footer><p>&copy; {new Date().getFullYear()} {profile.name}</p><p>{profile.role}</p><a href="#home">{t.contact.backTop}</a></footer>

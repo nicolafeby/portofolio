@@ -795,14 +795,15 @@ section[id] {
 
 .contact-main {
     min-height: 570px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(24px, 3vw, 48px);
     align-items: center;
 }
 
 .contact-main h2 {
     margin: 0;
-    font: 700 clamp(80px, 13.5vw, 190px)/.73 'Syne';
+    font: 700 clamp(80px, 10.5vw, 150px)/.73 'Syne';
     letter-spacing: -.085em;
 }
 
@@ -935,22 +936,56 @@ footer a {
     transform: translateY(0);
 }
 
-@media (max-width:1100px) {
+@media (min-width:1051px) and (max-width:1300px) {
+    .contact-main h2 {
+        font-size: clamp(78px, 9vw, 112px);
+    }
+
+    .contact-button {
+        width: 96px;
+        height: 96px;
+    }
+
+    .contact-socials {
+        gap: 12px;
+    }
+
+    .contact-button>svg:last-child {
+        right: 17px;
+        top: 17px;
+    }
+}
+
+@media (max-width:1050px) {
     .contact-main {
         min-height: auto;
         padding-block: 72px;
         display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        align-items: center;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: start;
         gap: 32px;
     }
 
+    .contact-content {
+        display: contents;
+    }
+
     .contact-main h2 {
+        grid-column: 1;
+        grid-row: 1;
         font-size: clamp(68px, 10.5vw, 116px);
     }
 
+    .contact-details {
+        grid-column: 1;
+        grid-row: 3;
+        margin-top: 0;
+    }
+
     .contact-socials {
-        align-self: center;
+        grid-column: 1;
+        grid-row: 2;
+        align-self: start;
     }
 }
 
@@ -1144,7 +1179,7 @@ footer a {
 
     .contact-socials {
         gap: 12px;
-        flex-direction: column;
+        flex-direction: row;
     }
 }
 
@@ -1627,10 +1662,10 @@ footer a {
 @media (max-width:560px) {
     .contact-main {
         display: grid;
-        grid-template-columns: minmax(0, 1fr) 68px;
-        padding-block: 60px;
-        align-items: flex-end;
-        gap: 38px 15px;
+        grid-template-columns: minmax(0, 1fr);
+        padding-block: 52px;
+        align-items: start;
+        gap: 20px;
     }
 
     .contact-content {
@@ -1639,6 +1674,7 @@ footer a {
 
     .contact-main h2 {
         grid-column: 1 / -1;
+        grid-row: 1;
         font-size: clamp(54px, 17.5vw, 70px);
         line-height: .78;
         letter-spacing: -.075em;
@@ -1647,12 +1683,15 @@ footer a {
 
     .contact-details {
         grid-column: 1;
-        margin-top: 38px;
+        grid-row: 3;
+        margin-top: 0;
     }
 
     .contact-socials {
-        grid-column: 2;
-        align-self: end;
+        grid-column: 1;
+        grid-row: 2;
+        align-self: start;
+        flex-direction: row;
     }
 
     .contact-details strong {
