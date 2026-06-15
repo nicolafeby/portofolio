@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 CONTAINER_NAME="nicola-portfolio"
 PORT="${PORT:-1998}"
